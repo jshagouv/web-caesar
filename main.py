@@ -16,9 +16,28 @@
 #
 import webapp2
 
+form = """
+<form method ="post" name="main-text">
+    <label>
+        Enter some text
+        <br>
+        <input type="text" name="text-to-rot" value="%(current_text)s">
+    </label>
+    <br>
+    <br>
+    <input type="submit">
+</form>
+"""
+
 class MainHandler(webapp2.RequestHandler):
+
+    def write_form(self,current_text=""):
+        self.response.out.write(form % {"current_text":current_text})
     def get(self):
-        self.response.write('Hello world!')
+        self.write_form()
+    def post(self):
+        user_text = self.request.get('text-to-rot')
+        self.write_form(user_text)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
