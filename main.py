@@ -20,6 +20,7 @@ from caesar import encrypt
 
 form = """
 <form action="/" method ="post" name="main-text">
+    <h2>Web Caesar</h2>
     <label>
         Enter some text
         <br>
