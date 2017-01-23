@@ -29,6 +29,12 @@ form = """
         <input type="text" name="text-to-rot" value="%(current_text)s">
     </label>
     <br>
+    <label>
+        Enter amount of rotation:
+        <br>
+        <input type="text" name="rot-num" value="%(rot_num)s">
+    </label>
+    <br>
     <br>
     <input type="submit">
 </form>
@@ -37,21 +43,23 @@ def escape_html(s):
     return cgi.escape(s, quote=True)
 
 class MainHandler(webapp2.RequestHandler):
-    def write_form(self,current_text=""):
-        self.response.out.write(form % {"current_text":current_text})
+    def write_form(self,current_text="",rot_num=""):
+        self.response.out.write(form % {"current_text":current_text,
+                                        "rot_num":rot_num})
     def get(self):
         self.write_form()
     def post(self):
         # Text from input box is of type unicode, rotate_character is expecting
         # string or integer, so must convert it first.
         user_text = str(self.request.get('text-to-rot'))
+        user_rot_num = int(self.request.get('rot-num'))
         #self.response.headers['Content-Type'] = 'text/plain'
         #self.response.out.write(self.request)
         rot_text = ""
         for char in user_text:
-            rot_text = rot_text + rotate_character(char,13)
+            rot_text = rot_text + rotate_character(char,user_rot_num)
         escaped_text = escape_html(rot_text)
-        self.write_form(escaped_text)
+        self.write_form(escaped_text,str(user_rot_num))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
