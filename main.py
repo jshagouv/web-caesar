@@ -15,6 +15,9 @@
 # limitations under the License.
 #
 import webapp2
+import cgi
+from helpers import rotate_character
+
 
 form = """
 <form method ="post" name="main-text">
@@ -28,16 +31,25 @@ form = """
     <input type="submit">
 </form>
 """
+def escape_html(s):
+    return cgi.escape(s, quote=True)
 
 class MainHandler(webapp2.RequestHandler):
-
     def write_form(self,current_text=""):
         self.response.out.write(form % {"current_text":current_text})
     def get(self):
         self.write_form()
     def post(self):
-        user_text = self.request.get('text-to-rot')
-        self.write_form(user_text)
+        # Text from input box is of type unicode, rotate_character is expecting
+        # string or integer, so must convert it first.
+        user_text = str(self.request.get('text-to-rot'))
+        #self.response.headers['Content-Type'] = 'text/plain'
+        #self.response.out.write(self.request)
+        rot_text = ""
+        for char in user_text:
+            rot_text = rot_text + rotate_character(char,13)
+        escaped_text = escape_html(rot_text)
+        self.write_form(escaped_text)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
