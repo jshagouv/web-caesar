@@ -16,7 +16,7 @@
 #
 import webapp2
 import cgi
-from helpers import rotate_character
+from helpers import rotate_character, encrypt
 
 # Initially tried to use textarea, but could not figure out how to read
 # and change text. Google search of hte issue all used javascript. So
@@ -55,9 +55,7 @@ class MainHandler(webapp2.RequestHandler):
         user_rot_num = int(self.request.get('rot-num'))
         #self.response.headers['Content-Type'] = 'text/plain'
         #self.response.out.write(self.request)
-        rot_text = ""
-        for char in user_text:
-            rot_text = rot_text + rotate_character(char,user_rot_num)
+        rot_text = encrypt(user_text,user_rot_num)
         escaped_text = escape_html(rot_text)
         self.write_form(escaped_text,str(user_rot_num))
 

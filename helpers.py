@@ -33,3 +33,9 @@ def rotate_character(char, rot):
         if char.islower():
             new_char = new_char.lower()
         return new_char
+
+def encrypt(text,rot):
+    encrypt_msg = ''
+    for i in text:
+        encrypt_msg += rotate_character(i,rot)
+    return encrypt_msg
