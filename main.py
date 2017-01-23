@@ -50,7 +50,14 @@ class MainHandler(webapp2.RequestHandler):
         # rotate_character is expecting string or integer, so must
         # convert it first.
         user_text = str(self.request.get('text-to-rot'))
-        user_rot_num = int(self.request.get('rot-num'))
+        user_rot_num = self.request.get('rot-num')
+        # If no rotation is provided, assume 0
+        if len(user_rot_num) == 0:
+            user_rot_num = 0
+        # Convert all rotation entries to int
+        else:
+            user_rot_num = int(user_rot_num)
+
         #self.response.headers['Content-Type'] = 'text/plain'
         #self.response.out.write(self.request)
         rot_text = encrypt(user_text,user_rot_num)
