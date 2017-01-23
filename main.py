@@ -16,7 +16,7 @@
 #
 import webapp2
 import cgi
-from helpers import rotate_character, encrypt
+from helpers import encrypt
 
 # Initially tried to use textarea, but could not figure out how to read
 # and change text. Google search of hte issue all used javascript. So
