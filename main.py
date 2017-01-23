@@ -19,21 +19,20 @@ import cgi
 from caesar import encrypt
 
 form = """
-<form method ="post" name="main-text">
+<form action="/" method ="post" name="main-text">
     <label>
         Enter some text
         <br>
-        <textarea name="text-to-rot" rows="5" cols"100">%(current_text)s</textarea>
+        <textarea name="text-to-rot" rows="5" cols="50">%(current_text)s</textarea>
     </label>
     <br>
     <label>
         Enter amount of rotation:
         <br>
-        <input type="text" name="rot-num" value="%(rot_num)s">
+        <input type="text" name="rot-num" value="%(rot_num)s"/>
     </label>
-    <br>
-    <br>
-    <input type="submit">
+    <br/>
+    <input type="submit"/>
 </form>
 """
 def escape_html(s):
@@ -46,8 +45,8 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.write_form()
     def post(self):
-        # Text from input box is of type unicode, rotate_character is expecting
-        # string or integer, so must convert it first.
+        # Text from textarea element is of type unicode, rotate_character is
+        # expecting string or integer, so must convert it first.
         user_text = str(self.request.get('text-to-rot'))
         user_rot_num = int(self.request.get('rot-num'))
         #self.response.headers['Content-Type'] = 'text/plain'
