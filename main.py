@@ -18,15 +18,12 @@ import webapp2
 import cgi
 from caesar import encrypt
 
-# Initially tried to use textarea, but could not figure out how to read
-# and change text. Google search of hte issue all used javascript. So
-# reverted to an input element.
 form = """
 <form method ="post" name="main-text">
     <label>
         Enter some text
         <br>
-        <input type="text" name="text-to-rot" value="%(current_text)s">
+        <textarea name="text-to-rot" rows="5" cols"100">%(current_text)s</textarea>
     </label>
     <br>
     <label>
