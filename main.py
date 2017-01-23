@@ -18,7 +18,9 @@ import webapp2
 import cgi
 from helpers import rotate_character
 
-
+# Initially tried to use textarea, but could not figure out how to read
+# and change text. Google search of hte issue all used javascript. So
+# reverted to an input element.
 form = """
 <form method ="post" name="main-text">
     <label>
