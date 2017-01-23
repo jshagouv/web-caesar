@@ -29,7 +29,7 @@ form = """
     <label>
         Enter amount of rotation:
         <br>
-        <input type="text" name="rot-num" value="%(rot_num)s"/>
+        <input type="number" name="rot-num" value="%(rot_num)s"/>
     </label>
     <br/>
     <input type="submit"/>
@@ -45,8 +45,9 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.write_form()
     def post(self):
-        # Text from textarea element is of type unicode, rotate_character is
-        # expecting string or integer, so must convert it first.
+        # Text from textarea and input elements are of type unicode,
+        # rotate_character is expecting string or integer, so must
+        # convert it first.
         user_text = str(self.request.get('text-to-rot'))
         user_rot_num = int(self.request.get('rot-num'))
         #self.response.headers['Content-Type'] = 'text/plain'
